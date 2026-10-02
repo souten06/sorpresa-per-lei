@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Una domanda per te ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #fff0f5, #ffe4ec);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #333;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 100%;
+    max-width: 520px;
+    text-align: center;
+}
+
+.card {
+    background: rgba(255,255,255,0.92);
+    border-radius: 28px;
+    padding: 35px 25px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    animation: appear 0.8s ease;
+}
+
+.heart {
+    font-size: 65px;
+    animation: heartbeat 1.5s infinite;
+}
+
+h1 {
+    font-size: 30px;
+    margin: 15px 0;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+button {
+    border: none;
+    border-radius: 15px;
+    padding: 14px 25px;
+    font-size: 17px;
+    cursor: pointer;
+    margin: 8px;
+    transition: transform 0.2s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+.continue,
+.yes {
+    background: #ff5c8a;
+    color: white;
+}
+
+.no {
+    background: #eee;
+    color: #333;
+}
+
+.hidden {
+    display: none;
+}
+
+.final-heart {
+    font-size: 75px;
+    animation: heartbeat 1.2s infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.heart-float {
+    position: fixed;
+    bottom: -30px;
+    font-size: 25px;
+    animation: floatUp 5s linear forwards;
+    pointer-events: none;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card" id="start">
+        <div class="heart">❤️</div>
+
+        <h1>Ciao amore...</h1>
+
+        <p>
+            Se sei arrivata fin qui, significa che hai scansionato
+            il mio QR code.
+        </p>
+
+        <p>
+            Ho pensato tanto a cosa dirti,
+            ma forse ci sono cose che è meglio chiedere con il cuore.
+        </p>
+
+        <button class="continue" onclick="showQuestion()">
+            Continua ❤️
+        </button>
+    </div>
+
+
+    <div class="card hidden" id="question">
+
+        <div class="heart">🥹</div>
+
+        <h1>Una cosa te la voglio chiedere...</h1>
+
+        <p>
+            Non posso cambiare quello che è successo tra noi.
+        </p>
+
+        <p>
+            Ma posso dirti che, nonostante tutto,
+            una parte di me vorrebbe ancora provarci.
+        </p>
+
+        <h2>
+            Vuoi tornare insieme a me? ❤️
+        </h2>
+
+        <button class="yes" onclick="sayYes()">
+            Sì, voglio ❤️
+        </button>
+
+        <button class="no" onclick="sayNo()">
+            No
+        </button>
+
+    </div>
+
+
+    <div class="card hidden" id="yes">
+
+        <div class="final-heart">❤️</div>
+
+        <h1>Allora ricominciamo. ❤️</h1>
+
+        <p>
+            Non so cosa ci aspetta,
+            ma so che sono felice di poterci riprovare con te.
+        </p>
+
+        <h2>
+            Ti amo. ❤️
+        </h2>
+
+    </div>
+
+
+    <div class="card hidden" id="no">
+
+        <div class="final-heart">🤍</div>
+
+        <h1>Va bene.</h1>
+
+        <p>
+            Grazie comunque per aver letto fino alla fine.
+            Qualunque sia la tua risposta,
+            rispetto quello che senti.
+        </p>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function showQuestion() {
+    document.getElementById("start").classList.add("hidden");
+    document.getElementById("question").classList.remove("hidden");
+
+    createHearts();
+}
+
+function sayYes() {
+    document.getElementById("question").classList.add("hidden");
+    document.getElementById("yes").classList.remove("hidden");
+
+    createHearts();
+    createHearts();
+    createHearts();
+}
+
+function sayNo() {
+    document.getElementById("question").classList.add("hidden");
+    document.getElementById("no").classList.remove("hidden");
+}
+
+function createHearts() {
+
+    for (let i = 0; i < 5; i++) {
+
+        const heart = document.createElement("div");
+
+        heart.className = "heart-float";
+        heart.innerHTML = "❤️";
+
+        heart.style.left =
+            Math.random() * 100 + "vw";
+
+        heart.style.animationDuration =
+            (3 + Math.random() * 3) + "s";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 6000);
+    }
+}
+
+</script>
+
+</body>
+</html>
